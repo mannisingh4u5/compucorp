@@ -1,0 +1,12 @@
+SELECT ct.display_name AS Contact_display_name ,ct.organization_name AS Employer_organisation_name, COUNT(cs.contact_id) AS Number_of_cases
+
+FROM civicrm_contact ct
+JOIN civicrm_case_contact cs
+ON ct.employer_id = cs.contact_id
+
+JOIN civicrm_case cc
+ON cs.case_id = cc.id
+WHERE ct.contact_type='individual' AND cc.status_id=1
+
+GROUP BY ct.display_name, ct.organization_name
+ORDER BY ct.display_name ASC
